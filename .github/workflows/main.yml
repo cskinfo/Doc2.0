@@ -17,8 +17,8 @@ jobs:
       
       # Step 2: (Optional) Install PHP dependencies if you use Composer
       # If you don't use Composer, you can remove this entire step.
-      - name: Install Dependencies
-        run: composer install --no-dev --optimize-autoloader
+      # - name: Install Dependencies
+        # run: composer install --no-dev --optimize-autoloader
         # Note: You might need to install php/composer on the runner if not present,
         # but ubuntu-latest usually has them.
 
