@@ -1,0 +1,43 @@
+name: Deploy Doc App via FTP
+
+# Trigger the deployment only on push to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the latest code
+      - name: Get latest code
+        uses: actions/checkout@v4
+      
+      # Step 2: (Optional) Install PHP dependencies if you use Composer
+      # If you don't use Composer, you can remove this entire step.
+      - name: Install Dependencies
+        run: composer install --no-dev --optimize-autoloader
+        # Note: You might need to install php/composer on the runner if not present,
+        # but ubuntu-latest usually has them.
+
+      # Step 3: Sync files via FTP
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # The protocol to use (ftp, ftps, or ftps-legacy)
+          protocol: ftps
+          # The folder on your server to upload to (e.g., public_html/)
+          server-dir: ./public_html/
+          # The local folder to upload (./ uploads everything in the repo)
+          local-dir: ./
+          # standardized-exclude lists common files to exclude (git, github folders, etc.)
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.env
