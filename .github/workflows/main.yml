@@ -32,7 +32,7 @@ jobs:
           # The protocol to use (ftp, ftps, or ftps-legacy)
           protocol: ftps
           # The folder on your server to upload to (e.g., public_html/)
-          server-dir: ./public_html/
+          server-dir: ./doc.cskinfotech.com/
           # The local folder to upload (./ uploads everything in the repo)
           local-dir: ./
           # standardized-exclude lists common files to exclude (git, github folders, etc.)
